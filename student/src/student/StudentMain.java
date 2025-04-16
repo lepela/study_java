@@ -9,6 +9,15 @@ public class StudentMain {
 			case 1:
 				service.register();
 				break;
+			case 2:
+				service.read();
+				break;
+			case 3:
+				service.modify();
+				break;
+			case 4:
+				service.remove();
+				break;
 			case 5:
 				System.out.println("bye~!");
 				return;
