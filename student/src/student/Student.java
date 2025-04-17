@@ -35,4 +35,7 @@ public class Student {
 	}
 	
 	// 평균 계산 double type
+	double avg() {
+		return total() / 3d;
+	}
 }
