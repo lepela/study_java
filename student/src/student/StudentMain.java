@@ -19,6 +19,12 @@ public class StudentMain {
 				service.remove();
 				break;
 			case 5:
+				service.allAvg();
+				break;
+			case 6:
+				service.readOrder();
+				break;
+			case 7:
 				System.out.println("bye~!");
 				return;
 			default:
