@@ -3,6 +3,15 @@ package student;
 import java.util.Arrays;
 
 public class StudentService {
+	// 1. 모든 필드, 메서드, 생성자 > 접근제한자
+	// 2. 어떤 값을 입력하더라도 예외 처리 (프로그램 종료는 정상종료)
+	// 3. 점수값 입력의 범위 0~100 사이만 인정
+	// 4. 이름 입력은 한글만 인정, 2글자~4글자사이
+	// 5. 임시데이터의 점수값을 랜덤으로 배정(60~100)
+	
+	// 도형 과제 추가
+	// 삼각형, 3차원도형 추가 구현
+	
 	Student[] students = new Student[4];
 	Student[] sortedStudents = new Student[students.length];
 	int count;
@@ -13,7 +22,7 @@ public class StudentService {
 		students[count++] = new Student(3, "말똥이", 10, 80, 90);
 		students[count++] = new Student(4, "소똥이", 100, 100, 90);
 		
-		sortedStudents = Arrays.copyOf(students, students.length);
+		sortedStudents = students.clone();
 		rank();
 	}
 	
@@ -149,37 +158,6 @@ public class StudentService {
 			Student tmp = sortedStudents[i];
 			sortedStudents[i] = sortedStudents[idx];
 			sortedStudents[idx] = tmp;
-		}		
-	}
-	
-	// 1. 중복학번 학생 등록 방지(학번을 기준으로 학생의 존재 여부)
-	
-	// 2. 점수당 평균값 출력 + @ 총평균
-	
-	// 3. 석차 순 정렬
-	
-	// 4. Student 클래스의 toString 재정의 
-	
-	public static void main(String[] args) {
-		int[] arr = {5,3,2,1,4, 10, 0, 10, 5, 4};
-		
-		// 탐색 n 최소값
-		// 1, 3, 2, 5, 4 > 1회차 결과
-		// 1, 2, 3, 5, 4 > 2회차 결과
-		// 1, 2, 3, 5, 4 > 3회차 결과
-		// 1, 2, 3, 4, 5 > 4회차 결과
-		for(int i = 0 ; i < arr.length - 1; i++ ) {
-			int idx = i;
-			for(int j = 1 + i ; j < arr.length ; j++) {
-				if(arr[idx] < arr[j]) {
-					idx = j;
-				}
-			}
-			int tmp = arr[i];
-			arr[i] = arr[idx];
-			arr[idx] = tmp;
-	
-			System.out.println(i + 1 + "회차 :: " + Arrays.toString(arr));
 		}		
 	}
 	
