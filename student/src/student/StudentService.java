@@ -3,16 +3,8 @@ package student;
 import java.util.Arrays;
 
 public class StudentService {
-	// 1. 모든 필드, 메서드, 생성자 > 접근제한자
-	// 1-1. 필드 private, 메서드 public, 생성자 public
-	// 1-2. getter, setter
-	// 2. 어떤 값을 입력하더라도 예외 처리 (프로그램 종료는 정상종료)
-	// 3. 점수값 입력의 범위 0~100 사이만 인정
-	// 4. 이름 입력은 한글만 인정, 2글자~4글자사이
-	// 5. 임시데이터의 점수값을 랜덤으로 배정(60~100)
-	
-	// 도형 과제 추가
-	// 삼각형, 3차원도형 추가 구현
+	// 1. 학생예제의 배열 > 리스트로 교체
+	// 2. 이름 유효성을 정규표현식으로 교체
 	
 	private Student[] students = new Student[4];
 	private Student[] sortedStudents = new Student[students.length];

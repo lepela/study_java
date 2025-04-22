@@ -1,5 +1,8 @@
 package card;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
 	public static void main(String[] args) {
 		play();
@@ -9,22 +12,24 @@ public class Main {
 	}
 	
 	static void play() {
-		Player[] players = new Player[4];
+		List<Player> players = new ArrayList<Player>();
 		Deck deck = new Deck();
 		deck.shuffle();
-		players[0] = new Player("새똥이");
-		players[1] = new Player("개똥이");
-		players[2] = new Player("소똥이");
-		players[3] = new Player("말똥이");
+		players.add(new Player("새똥이"));
+		players.add(new Player("개똥이"));
+		players.add(new Player("소똥이"));
+		players.add(new Player("말똥이"));
 		
-		for(int i = 0 ; i < players.length ; i++) {
-			for(int j = 0 ; j < players[i].cards.length ; j++) {
-				players[i].cards[j] = deck.pick();
+		for(int i = 0 ; i < players.size() ; i++) {
+			for(int j = 0 ; j < 5; j++) {
+				players.get(i).cards.add(deck.pick());
 			}
 		}
 		
 		for(Player p : players) {
 			System.out.println(p);
 		}
+		
+		System.out.println("deck의 남은 카드 갯수 : " + deck.cards.size());
 	}
 }
