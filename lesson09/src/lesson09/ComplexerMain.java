@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 public class ComplexerMain {
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Complexer com = new Complexer();
 		System.out.println(Printer.INK);

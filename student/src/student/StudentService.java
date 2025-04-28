@@ -2,7 +2,10 @@ package student;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.TreeSet;
 
 public class StudentService {
 	// 1. 학생예제의 배열 > 리스트로 교체
@@ -12,7 +15,8 @@ public class StudentService {
 	private List<Student> sortedStudents;
 
 	{
-		students.add(new Student(1, "개똥이", randomScore(), randomScore(), randomScore()));
+//		students.add(new Student(1, "개똥이", randomScore(), randomScore(), randomScore()));
+		students.add(Student.builder().no(1).name("개똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
 		students.add(new Student(2, "새똥이", randomScore(), randomScore(), randomScore()));
 		students.add(new Student(3, "말똥이", randomScore(), randomScore(), randomScore()));
 		students.add(new Student(4, "소똥이", randomScore(), randomScore(), randomScore()));
@@ -20,6 +24,16 @@ public class StudentService {
 		sortedStudents = new ArrayList<Student>(students);
 		rank();
 	}
+	
+	private static StudentService studentService = new StudentService();
+	private StudentService() {
+		
+	}
+	public static StudentService getInstance() {
+		return studentService;
+	}
+	
+	
 	public int randomScore() {
 		return (int)(Math.random() * 41 + 60);
 	}
@@ -159,17 +173,18 @@ public class StudentService {
 	}
 	
 	public void rank() {
-		for(int i = 0 ; i < sortedStudents.size() - 1; i++ ) {
-			int idx = i;
-			for(int j = 1 + i ; j < sortedStudents.size() ; j++) {
-				if(sortedStudents.get(idx).total() < sortedStudents.get(j).total()) {
-					idx = j;
-				}
-			}
-			Student tmp = sortedStudents.get(i);
-			sortedStudents.set(i, sortedStudents.get(idx));
-			sortedStudents.set(idx, tmp);
-		}		
+		// 1. List.sort()
+//		sortedStudents.sort(new Comparator<Student>() {
+//			@Override
+//			public int compare(Student o1, Student o2) {
+//				// TODO Auto-generated method stub
+//				return Double.compare(o2.avg(), o1.avg());
+//			}
+//		});
+		// 2. TreeSet()
+//		sortedStudents = new ArrayList<>(new TreeSet<>(sortedStudents)) ;
+		// 3. Collections
+		Collections.sort(sortedStudents, (o1, o2) -> o2.total() - o1.total());
 	}
 	
 }

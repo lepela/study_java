@@ -14,6 +14,14 @@ public class Main {
 		talkables[2] = new Speaker();
 		for(Talkable t : talkables) {
 			t.talk();
+			
 		}
+		
+		Human human = new Human();
+		Dog dog = new Dog();
+		System.out.println(human instanceof Human);
+		System.out.println(human instanceof Animal);
+		System.out.println(human instanceof Talkable);
+		System.out.println(dog instanceof Talkable); // false
 	}
 }

@@ -2,7 +2,6 @@ package lesson09;
 
 public class Complexer implements ComplexerInter{
 
-	@Override
 	public void send(String tel) {
 		System.out.println(FAX_NUMBER + "에서" + tel + "로 FAX 전송");
 	}

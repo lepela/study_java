@@ -1,6 +1,6 @@
 package lesson08.shape;
 
-public class Rect extends Shape{
+public class Rect extends Shape implements Shape2D{
 	int x, y;
 	
 	public Rect() {	}
