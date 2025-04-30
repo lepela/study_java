@@ -1,26 +1,38 @@
 package student;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.TreeSet;
 
+@SuppressWarnings("unchecked")
 public class StudentService {
-	// 1. 학생예제의 배열 > 리스트로 교체
-	// 2. 이름 유효성을 정규표현식으로 교체
-	
 	private List<Student> students = new ArrayList<Student>();
 	private List<Student> sortedStudents;
 
 	{
-//		students.add(new Student(1, "개똥이", randomScore(), randomScore(), randomScore()));
-		students.add(Student.builder().no(1).name("개똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
-		students.add(new Student(2, "새똥이", randomScore(), randomScore(), randomScore()));
-		students.add(new Student(3, "말똥이", randomScore(), randomScore(), randomScore()));
-		students.add(new Student(4, "소똥이", randomScore(), randomScore(), randomScore()));
-		
+		ObjectInputStream ois = null;
+		try {
+			ois = new ObjectInputStream(new FileInputStream("data/student.ser"));
+			students = (List<Student>)ois.readObject();
+			ois.close();
+		}
+		catch(FileNotFoundException e) {
+			System.out.println("파일을 불러 올수 없습니다. 임시 데이터셋으로 진행합니다.");
+			students.add(Student.builder().no(1).name("개똥이").kor(randomScore()).eng(randomScore()).mat(randomScore()).build());
+			students.add(new Student(2, "새똥이", randomScore(), randomScore(), randomScore()));
+			students.add(new Student(3, "말똥이", randomScore(), randomScore(), randomScore()));
+			students.add(new Student(4, "소똥이", randomScore(), randomScore(), randomScore()));
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 		sortedStudents = new ArrayList<Student>(students);
 		rank();
 	}
@@ -97,6 +109,7 @@ public class StudentService {
 		students.add(s2);
 		sortedStudents.add(s2);
 		rank();
+		save();
 	}
 	// 조회
 	public void read() {
@@ -127,7 +140,8 @@ public class StudentService {
 		s.setKor(checkRange("국어", StudentUtils.nextInt("국어 > ")));
 		s.setEng(checkRange("영어", StudentUtils.nextInt("영어 > ")));
 		s.setMat(checkRange("수학", StudentUtils.nextInt("수학 > ")));
-		rank();	
+		rank();
+		save();
 	}
 	// 삭제
 	public void remove() {
@@ -140,6 +154,7 @@ public class StudentService {
 		}
 		students.remove(s);
 		sortedStudents.remove(s);
+		save();
 	}
 	
 	public void allAvg() {
@@ -173,18 +188,22 @@ public class StudentService {
 	}
 	
 	public void rank() {
-		// 1. List.sort()
-//		sortedStudents.sort(new Comparator<Student>() {
-//			@Override
-//			public int compare(Student o1, Student o2) {
-//				// TODO Auto-generated method stub
-//				return Double.compare(o2.avg(), o1.avg());
-//			}
-//		});
-		// 2. TreeSet()
-//		sortedStudents = new ArrayList<>(new TreeSet<>(sortedStudents)) ;
-		// 3. Collections
 		Collections.sort(sortedStudents, (o1, o2) -> o2.total() - o1.total());
+	}
+	
+	private void save() {
+		try {
+			File file = new File("data");
+			if(!file.exists()) {
+				file.mkdirs();
+			}
+			ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(new File(file, "student.ser")));
+			oos.writeObject(students);
+			oos.close();
+		} catch (IOException e) {
+			System.out.println("파일 접근 권한이 없습니다.");
+			e.printStackTrace();
+		}
 	}
 	
 }
