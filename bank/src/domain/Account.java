@@ -12,20 +12,17 @@ public class Account {
 	// 계좌비밀번호
 	private String pw;
 	// 한도액수
-	private long limit;
+	private long limit = 1_000_000;
 	// 개설일
-	private Date date;
+	private Date date = new Date();
 	
 	public Account() {
 	}
 
-	public Account(int no, long amount, Customer customer, String pw, long limit, Date date) {
+	public Account(int no, Customer customer, String pw) {
 		this.no = no;
-		this.amount = amount;
 		this.customer = customer;
 		this.pw = pw;
-		this.limit = limit;
-		this.date = date;
 	}
 
 	public int getNo() {
